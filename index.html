@@ -8,9 +8,6 @@
 			margin: 0;
 			font-size: 28px;
 		}
-		.greeting {
-			text-align: center;
-		}
 		.panel {
 			position: absolute;
 			bottom: 0;
@@ -22,20 +19,38 @@
 		}
 		input {
 			font-size: inherit;
+			width: 100%;
 		}
-		input[name=message] {
-			width: 50%;
+
+		.inputs {
+			display: flex;
+		}
+
+		.input-left {
+			max-width: 20%;
+			padding-right: 0.5em;
+		}
+
+		.input-left, .input-right {
+			flex-grow: 1;
 		}
 	</style>
 	<title>Chat</title>
 </head>
 <body>
 	<div id="messages">
-		<div class="greeting">Добро пожаловать в чат!</div>
+		<p align="center" id="greeting">Добро пожаловать в чат!</p>
 	</div>
 	<div class="panel">
 		<form onsubmit="sendMessage(this.nickname.value, this.message.value); this.message.value = ''; return false">
-			<input name="nickname" placeholder="nickname" type="text" autofocus="" autocomplete="off"></input> <input name="message" placeholder="message" type="text" autocomplete="off"></input>
+			<div class="inputs">
+				<div class="input-left">
+					<input name="nickname" placeholder="nickname" type="text" autofocus="" autocomplete="off"></input> 
+				</div>
+				<div class="input-right">
+					<input name="message" placeholder="message" type="text" autocomplete="off"></input>
+				</div>
+			</div>
 			<input type="submit" style="display: none" />
 		</form>
 	</div>
@@ -57,6 +72,7 @@
 			var div = document.createElement('DIV');
 			div.innerHTML = '<span><strong>' + data.nickname + ': </strong>' + data.message + '</span>';
 			messagesContainer.insertBefore(div, messagesContainer.firstChild);
+			document.getElementById('greeting').style.display = 'none';
 			return data;
 		}
 	</script>
