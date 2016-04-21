@@ -15,7 +15,9 @@ fs.readFile('./index.html', function (err, html) {
         response.end(request.url == '/' ? html : '');  
     });
 
-    server.listen(8000);
+    server.listen(8000, function() {
+      console.log('Server running at port 8000');
+    });
 });
 
 io.on('connection', function(socket){
@@ -23,6 +25,7 @@ io.on('connection', function(socket){
   socket.on('message', function(data) {
   	if(data && typeof data.nickname == 'string' && typeof data.message == 'string' && data.nickname && data.message) {
   		socket.broadcast.emit('message', data);
+      console.log(data);
   	}
   })
 
