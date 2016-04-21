@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<style type="text/css">
+		body {
+			margin: 0;
+			font-size: 28px;
+		}
+		.greeting {
+			text-align: center;
+		}
+		.panel {
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+		    padding: 10px;
+		    box-sizing: border-box;
+		    background: #e2e2e2;
+		}
+		input {
+			font-size: inherit;
+		}
+		input[name=message] {
+			width: 50%;
+		}
+	</style>
+	<title>Chat</title>
+</head>
+<body>
+	<div id="messages">
+		<div class="greeting">Добро пожаловать в чат!</div>
+	</div>
+	<div class="panel">
+		<form onsubmit="sendMessage(this.nickname.value, this.message.value); this.message.value = ''; return false">
+			<input name="nickname" placeholder="nicname" type="text" autofocus="" autocomplete="off"></input> <input name="message" placeholder="message" type="text" autocomplete="off"></input>
+			<input type="submit" style="display: none" />
+		</form>
+	</div>
+
+	<script type="text/javascript">
+		var socket = io();
+		var messagesContainer = document.getElementById('messages');
+
+		socket.on('message', function(data) {
+			renderMessage(data);
+		})
+
+		function sendMessage(nickname, message) {
+			if(nickname && message)
+				socket.emit('message', renderMessage({nickname: nickname, message: message}));
+		}
+
+		function renderMessage(data) {
+			var div = document.createElement('DIV');
+			div.innerHTML = '<span><strong>' + data.nickname + ': </strong>' + data.message + '</span>';
+			messagesContainer.insertBefore(div, messagesContainer.firstChild);
+			return data;
+		}
+	</script>
+</body>
+</html>
