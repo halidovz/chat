@@ -12,7 +12,7 @@ fs.readFile('./index.html', function (err, html) {
     }   
     server.on('request', function(request, response) {
         response.writeHeader(200, {"Content-Type": "text/html"});
-        response.end(request.url == '/' ? html : '');  
+        response.end(html);  
     });
 
     server.listen(8000, function() {
