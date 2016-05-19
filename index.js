@@ -22,10 +22,7 @@ fs.readFile('./index.html', function (err, html) {
 });
 
 io.on('connection', function(socket){
-  if(process.env.PORT) {
-    io.set("transports", ["websocket"]); 
-  }
-
+  
   socket.on('message', function(data) {
   	if(data && typeof data.nickname == 'string' && typeof data.message == 'string' && data.nickname && data.message) {
   		socket.broadcast.emit('message', { nickname: html(data.nickname), message: html(data.message) });
