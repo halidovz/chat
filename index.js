@@ -5,6 +5,7 @@ var html = require('escape-html');
 
 var server = http.createServer();
 var io = socketio(server);
+var port = process.env.PORT || 3000;
 
 fs.readFile('./index.html', function (err, html) {
     if (err) {
@@ -15,8 +16,8 @@ fs.readFile('./index.html', function (err, html) {
         response.end(html);  
     });
 
-    server.listen(8000, function() {
-      console.log('Server running at port 8000');
+    server.listen(port, function() {
+      console.log('Server running at port ' + port);
     });
 });
 
