@@ -24,7 +24,6 @@ fs.readFile('./index.html', function (err, html) {
 io.on('connection', function(socket){
   if(process.env.PORT) {
     io.set("transports", ["websocket"]); 
-    io.set("polling duration", 10); 
   }
 
   socket.on('message', function(data) {
