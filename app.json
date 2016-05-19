@@ -1,0 +1,7 @@
+{
+  "name": "Chat",
+  "description": "Node.js + Socket.io Chat",
+  "repository": "https://github.com/halidovz/chat",
+  "logo": "",
+  "keywords": ["chat", "nodejs", "socketio"]
+}
